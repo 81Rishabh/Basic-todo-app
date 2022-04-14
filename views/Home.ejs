@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+    <title>
+        <%= title %>
+    </title>
+    <script defer src="/js/todoHelper.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Todo App</h1>
+    </header>
+    <div class="card-container">
+
+        <form action="/Add-Todo" method="post" id="form-controls">
+            <div id="Description-box">
+                <textarea name="title" placeholder="Description" id="Description" row="5" cols="80"></textarea>
+            </div>
+            <div id="select-box">
+                <p>category</p>
+                <select name="category" id="categories">
+                    <option value="Personal">Personal</option>
+                    <option value="Student">Student</option>
+                    <option value="work">work</option>
+                    <option value="School">School</option>
+                    <option value="channing">channing</option>
+                    <option value="other">other</option>
+                </select>
+            </div>
+            <div id="date">
+                <p>Date</p>
+                <input type="date" name="date" id="date-input">
+            </div>
+
+            <!-- Add and delete button -->
+            <div id="actions">
+                <button type="submit" id="add-button">
+                    <span>
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    ADD TASK
+                </button>
+                <button id="del-button">
+                    <a id="del-btn-link" href="/">
+                        <span>
+                            <i class="fas fa-trash"></i>
+                        </span>
+                        DELETE TASK
+                    </a>
+                </button>
+            </div>
+        </form>
+        <div id="tasks">
+            <ul>
+                <li class="list-item">
+                    <div id="work-title">
+                        <input type="checkbox" name="checbox">
+                        <p>
+                            Annual report submisson deadline
+                            <span><i class="fas fa-calendar-alt"></i></span>
+                            <span>Jun 1,2016</span>
+                        </p>
+
+                    </div>
+                    <div id="work-type">
+                        <p>Default</p>
+                    </div>
+                </li>
+                <% for(let list of TodoLists) {%>
+                    <li class="list-item">
+                        <div id="work-title">
+                            <input type="checkbox" name="checbox" class="input-checkbox" list-id="<%=list._id  %> ">
+                            <div id="content">
+                                <p>
+                                    <%= list.title %>
+                                </p>
+                                <span><i class="fas fa-calendar-alt"></i></span>
+                                <span>
+                                    <%= list.date %>
+                                </span>
+                            </div>
+
+                        </div>
+                        <div id="work-type">
+                            <p>
+                                <%= list.category %>
+                            </p>
+                        </div>
+                    </li>
+                    <%}%>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const textArea = document.getElementById("Description");
+        const checkboxs = document.querySelectorAll('.input-checkbox');
+        const addTaskBtn = document.getElementById('add-button');
+
+        const delBtnLink = document.getElementById('del-btn-link');
+        const delBtn = document.getElementById('del-button');
+        var isChecked = false;
+        var id;
+
+        // check if text field is empty
+        // still user want to add tasks
+        if (textArea.value == "") {
+            addTaskBtn.style.opacity = '.5';
+        }
+
+        // show ADD TASK button to user when input field must not be empty
+        textArea.addEventListener('input', function (e) {
+            if (e.target.value != "") {
+                addTaskBtn.style.opacity = '1';
+            }
+            else {
+                addTaskBtn.style.opacity = '.5';
+            }
+        });
+
+
+        // User has not selected checkbox and trying to removing the element
+        if (!isChecked) {
+            delBtn.style.opacity = '.5';
+        }
+ 
+    //    handling checkbox event
+        for (var i = 0; i < checkboxs.length; i++) {
+
+            // finding title to setting up text decoration - line-through
+            const nextChild = checkboxs[i].nextElementSibling;
+
+            // Adding evenet listener
+            checkboxs[i].addEventListener('change', function (e) {
+                id = e.target.getAttribute('list-id');
+                if (e.target.checked) {
+                    isChecked = e.target.checked;
+                    nextChild.style.textDecoration = 'line-through';
+                    delBtnLink.setAttribute('href', `/delete-taks/${id}`);
+                    delBtn.style.opacity = '1';
+                }
+                else {
+                    isChecked = e.target.checked;
+                    nextChild.style.textDecoration = 'none';
+                    delBtnLink.setAttribute('href', `/`);
+                    delBtn.style.opacity = '.5';
+                }
+            });
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>
