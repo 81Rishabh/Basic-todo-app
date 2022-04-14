@@ -1,7 +1,7 @@
 const TodoListModel = require('../models/TodList');
 
 
-module.exports = function(req,res){
+module.exports.addTodo = function(req,res){
     // destructuring
     const {title , category , date} = req.body;
     TodoListModel.create({
