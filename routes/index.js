@@ -9,6 +9,6 @@ const DeleteTodoController = require('../controller/DeleteTodoController');
 // home route
 router.get('/' , HomeController.home);
 router.post('/Add-Todo' , AddTodoController.addTodo);
-router.get('/delete-taks/:id' , DeleteTodoController.deleteTodo);
+router.get('/delete-taks' , DeleteTodoController.deleteTodo);
 
 module.exports  = router;

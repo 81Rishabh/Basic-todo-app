@@ -1,6 +1,6 @@
 // require library
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/Todo-list');
+mongoose.connect(`${process.env.MONGODB_URI}` , { useNewUrlParser: true});
 
 // aquire connection (to check if it is connected)
 const db = mongoose.connection;

@@ -139,3 +139,51 @@ input[type="checkbox"] {
     color: grey;
 }
 
+
+/* adding backgorund to work type */
+.list-item:nth-child(odd)  #work-type {
+    background-color : rgb(248, 45, 228) !important;
+}
+
+/* media queires */
+
+@media screen and (min-width : 360px) {
+    .card-container {
+        width : 95%;
+    }
+
+    #tasks ul li {
+        flex-wrap: wrap;
+    }
+    
+    #work-title {
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width : 360px) {
+    .card-container {
+        width : 95%;
+    }
+
+    #tasks ul li {
+        flex-wrap: wrap;
+    }
+    
+    #work-title {
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (min-width : 786px) {
+    .card-container {
+        width : 50%;
+    }
+}
+
+
+@media screen and (min-width : 900px) {
+    .card-container {
+        width : 50%;
+    }
+}

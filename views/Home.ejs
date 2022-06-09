@@ -26,7 +26,8 @@
             </div>
             <div id="select-box">
                 <p>category</p>
-                <select name="category" id="categories">
+                <select name="category" id="categories" required>
+                    <option value="">Choose a category</option>
                     <option value="Personal">Personal</option>
                     <option value="Student">Student</option>
                     <option value="work">work</option>
@@ -65,9 +66,11 @@
                         <input type="checkbox" name="checbox">
                         <p>
                             Annual report submisson deadline
-                            <span><i class="fas fa-calendar-alt"></i></span>
-                            <span>Jun 1,2016</span>
                         </p>
+                    </div>
+                    <div>
+                        <span><i class="fas fa-calendar-alt"></i></span>
+                        <span>Jun 1,2016</span>
                     </div>
                     <div id="work-type">
                         <p>Default</p>
@@ -105,8 +108,7 @@
         const delBtnLink = document.getElementById('del-btn-link');
         const delBtn = document.getElementById('del-button');
         var isChecked = false;
-        var id;
-
+        
         // check if text field is empty
         // still user want to add tasks
         if (textArea.value == "") {
@@ -128,8 +130,8 @@
         if (!isChecked) {
             delBtn.style.opacity = '.5';
         }
- 
-    //    handling checkbox event
+       
+    //  handling checkbox event
         for (var i = 0; i < checkboxs.length; i++) {
 
             // finding title to setting up text decoration - line-through
@@ -137,11 +139,13 @@
 
             // Adding evenet listener
             checkboxs[i].addEventListener('change', function (e) {
-                id = e.target.getAttribute('list-id');
+               var id = e.target.getAttribute('list-id');
+           
+            
                 if (e.target.checked) {
                     isChecked = e.target.checked;
                     nextChild.style.textDecoration = 'line-through';
-                    delBtnLink.setAttribute('href', `/delete-taks/${id}`);
+                    delBtnLink.setAttribute('href', `/delete-taks?id=`+id);
                     delBtn.style.opacity = '1';
                 }
                 else {
@@ -152,10 +156,6 @@
                 }
             });
         }
-
-
-
-
 
     </script>
 </body>
